@@ -27,10 +27,86 @@
     <p id="result2"></p>
   </div>
 
+  <div class="question" id="q3">
+    <p>3. What color do you get by mixing red and blue?</p>
+    <button onclick="answer(3, 'A')">A. Green</button>
+    <button onclick="answer(3, 'B')">B. Purple</button>
+    <button onclick="answer(3, 'C')">C. Orange</button>
+    <p id="result3"></p>
+  </div>
+
+  <div class="question" id="q4">
+    <p>4. Which planet is known as the Red Planet?</p>
+    <button onclick="answer(4, 'A')">A. Mars</button>
+    <button onclick="answer(4, 'B')">B. Venus</button>
+    <button onclick="answer(4, 'C')">C. Jupiter</button>
+    <p id="result4"></p>
+  </div>
+
+  <div class="question" id="q5">
+    <p>5. How many continents are there?</p>
+    <button onclick="answer(5, 'A')">A. 5</button>
+    <button onclick="answer(5, 'B')">B. 6</button>
+    <button onclick="answer(5, 'C')">C. 7</button>
+    <p id="result5"></p>
+  </div>
+
+  <div class="question" id="q6">
+    <p>6. Who wrote 'Harry Potter'?</p>
+    <button onclick="answer(6, 'A')">A. J.R.R. Tolkien</button>
+    <button onclick="answer(6, 'B')">B. J.K. Rowling</button>
+    <button onclick="answer(6, 'C')">C. Roald Dahl</button>
+    <p id="result6"></p>
+  </div>
+
+  <div class="question" id="q7">
+    <p>7. What gas do plants absorb from the air?</p>
+    <button onclick="answer(7, 'A')">A. Oxygen</button>
+    <button onclick="answer(7, 'B')">B. Carbon Dioxide</button>
+    <button onclick="answer(7, 'C')">C. Nitrogen</button>
+    <p id="result7"></p>
+  </div>
+
+  <div class="question" id="q8">
+    <p>8. What is the largest mammal?</p>
+    <button onclick="answer(8, 'A')">A. Elephant</button>
+    <button onclick="answer(8, 'B')">B. Blue Whale</button>
+    <button onclick="answer(8, 'C')">C. Giraffe</button>
+    <p id="result8"></p>
+  </div>
+
+  <div class="question" id="q9">
+    <p>9. Which of these is a prime number?</p>
+    <button onclick="answer(9, 'A')">A. 4</button>
+    <button onclick="answer(9, 'B')">B. 9</button>
+    <button onclick="answer(9, 'C')">C. 7</button>
+    <p id="result9"></p>
+  </div>
+
+  <div class="question" id="q10">
+    <p>10. Which ocean is the largest?</p>
+    <button onclick="answer(10, 'A')">A. Indian Ocean</button>
+    <button onclick="answer(10, 'B')">B. Atlantic Ocean</button>
+    <button onclick="answer(10, 'C')">C. Pacific Ocean</button>
+    <p id="result10"></p>
+  </div>
+
   <p><strong id="finalScore"></strong></p>
 
   <script>
-    const correctAnswers = { 1: 'B', 2: 'A' };
+    const correctAnswers = {
+      1: 'B',
+      2: 'A',
+      3: 'B',
+      4: 'A',
+      5: 'C',
+      6: 'B',
+      7: 'B',
+      8: 'B',
+      9: 'C',
+      10: 'C'
+    };
+
     let score = 0;
     let answered = {};
 
@@ -43,7 +119,7 @@
       if (isCorrect) score++;
 
       if (Object.keys(answered).length === Object.keys(correctAnswers).length) {
-        document.getElementById("finalScore").innerText = `You scored ${score}/${Object.keys(correctAnswers).length}!`;
+        document.getElementById("finalScore").innerText = `🎉 You scored ${score}/${Object.keys(correctAnswers).length}!`;
       }
     }
   </script>
