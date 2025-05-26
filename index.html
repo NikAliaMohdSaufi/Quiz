@@ -1,127 +1,258 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Simple Quiz</title>
+  <meta charset="UTF-8">
+  <title>Comparison and Contrast Quiz</title>
   <style>
-    body { font-family: Arial; padding: 20px; }
-    .question { margin-bottom: 20px; }
-    button { margin: 5px; padding: 10px; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 850px;
+      margin: auto;
+    }
+
+    .draggable {
+      display: inline-block;
+      padding: 6px 12px;
+      margin: 4px;
+      background-color: #d1fae5;
+      border: 1px solid #10b981;
+      border-radius: 5px;
+      cursor: grab;
+    }
+
+    .drop-zone {
+      display: inline-block;
+      width: 130px;
+      min-height: 30px;
+      border: 2px dashed #ccc;
+      margin: 0 5px;
+      padding: 5px;
+      text-align: center;
+      background-color: #f9fafb;
+    }
+
+    .drop-zone.hover {
+      border-color: #10b981;
+      background-color: #ecfdf5;
+    }
+
+    .topic {
+      display: none;
+    }
+
+    .topic.active {
+      display: block;
+    }
+
+    .navigation {
+      margin-top: 20px;
+    }
+
+    .feedback {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .connector-bank {
+      display: none;
+      margin: 15px 0;
+    }
+
+    .connector-bank.active {
+      display: block;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      margin: 10px 5px 0;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn-check {
+      background-color: #2563eb;
+      color: white;
+    }
+
+    .btn-check:hover {
+      background-color: #1e40af;
+    }
+
+    .btn-nav {
+      background-color: #10b981;
+      color: white;
+    }
+
+    .btn-nav:hover {
+      background-color: #059669;
+    }
   </style>
 </head>
 <body>
-  <h2>Quick Quiz</h2>
 
-  <div class="question" id="q1">
-    <p>1. What is the capital of Malaysia?</p>
-    <button onclick="answer(1, 'A')">A. Jakarta</button>
-    <button onclick="answer(1, 'B')">B. Kuala Lumpur</button>
-    <button onclick="answer(1, 'C')">C. Bangkok</button>
-    <p id="result1"></p>
+<h1>Comparison and Contrast Quiz</h1>
+
+<!-- Connector Banks -->
+<div id="connector-0" class="connector-bank active">
+  <strong>Connectors:</strong><br>
+  <div class="draggable" draggable="true" id="both">Both</div>
+  <div class="draggable" draggable="true" id="however">However</div>
+  <div class="draggable" draggable="true" id="inContrast">In contrast</div>
+  <div class="draggable" draggable="true" id="similarly">Similarly</div>
+  <div class="draggable" draggable="true" id="although">Although</div>
+</div>
+
+<div id="connector-1" class="connector-bank">
+  <strong>Connectors:</strong><br>
+  <div class="draggable" draggable="true" id="both2">Both</div>
+  <div class="draggable" draggable="true" id="however2">However</div>
+  <div class="draggable" draggable="true" id="inContrast2">In contrast</div>
+  <div class="draggable" draggable="true" id="similarly2">Similarly</div>
+  <div class="draggable" draggable="true" id="although2">Although</div>
+</div>
+
+<div id="connector-2" class="connector-bank">
+  <strong>Connectors:</strong><br>
+  <div class="draggable" draggable="true" id="both3">Both</div>
+  <div class="draggable" draggable="true" id="however3">However</div>
+  <div class="draggable" draggable="true" id="inContrast3">In contrast</div>
+  <div class="draggable" draggable="true" id="similarly3">Similarly</div>
+  <div class="draggable" draggable="true" id="although3">Although</div>
+</div>
+
+<!-- Topics -->
+<div class="topic active" id="topic-0">
+  <h2>Topic 1: Online vs Physical Class</h2>
+  <p>
+    <span class="drop-zone" data-answer="Both"></span> online and physical classes aim to deliver effective learning outcomes. 
+    <span class="drop-zone" data-answer="Similarly"></span>, students are expected to complete tasks and meet deadlines regardless of the medium. 
+    <span class="drop-zone" data-answer="In contrast"></span>, online classes allow students to attend from anywhere, while physical classes require attendance at a specific location. 
+    <span class="drop-zone" data-answer="Although"></span> some learners thrive in virtual environments, others find face-to-face interaction more motivating. 
+    <span class="drop-zone" data-answer="However"></span>, technical issues and internet reliability remain major drawbacks in online learning.
+  </p>
+  <button class="btn btn-check" onclick="checkAnswers(0)">Check Answers</button>
+  <div class="navigation">
+    <button class="btn btn-nav" onclick="nextTopic()">Next ➡</button>
   </div>
+  <div class="feedback" id="feedback-0"></div>
+</div>
 
-  <div class="question" id="q2">
-    <p>2. What is 5 × 6?</p>
-    <button onclick="answer(2, 'A')">A. 30</button>
-    <button onclick="answer(2, 'B')">B. 35</button>
-    <button onclick="answer(2, 'C')">C. 40</button>
-    <p id="result2"></p>
+<div class="topic" id="topic-1">
+  <h2>Topic 2: Book vs eBook</h2>
+  <p>
+    <span class="drop-zone" data-answer="Both"></span> printed books and eBooks are popular choices among readers. 
+    <span class="drop-zone" data-answer="Similarly"></span>, readers can annotate, highlight, and bookmark their progress in both formats. 
+    <span class="drop-zone" data-answer="However"></span>, the reading experience varies greatly. 
+    <span class="drop-zone" data-answer="In contrast"></span>, eBooks offer adjustable fonts and brightness, while physical books do not. 
+    <span class="drop-zone" data-answer="Although"></span> eBooks are convenient and lightweight, many still enjoy the scent and texture of paper.
+  </p>
+  <button class="btn btn-check" onclick="checkAnswers(1)">Check Answers</button>
+  <div class="navigation">
+    <button class="btn btn-nav" onclick="prevTopic()">⬅ Back</button>
+    <button class="btn btn-nav" onclick="nextTopic()">Next ➡</button>
   </div>
+  <div class="feedback" id="feedback-1"></div>
+</div>
 
-  <div class="question" id="q3">
-    <p>3. What color do you get by mixing red and blue?</p>
-    <button onclick="answer(3, 'A')">A. Green</button>
-    <button onclick="answer(3, 'B')">B. Purple</button>
-    <button onclick="answer(3, 'C')">C. Orange</button>
-    <p id="result3"></p>
+<div class="topic" id="topic-2">
+  <h2>Topic 3: Studying Alone vs in a Group</h2>
+  <p>
+    <span class="drop-zone" data-answer="Both"></span> solo and group study methods can lead to academic success. 
+    <span class="drop-zone" data-answer="Similarly"></span>, students in either setup must manage their time wisely. 
+    <span class="drop-zone" data-answer="However"></span>, individual studying offers more control over pace and environment. 
+    <span class="drop-zone" data-answer="In contrast"></span>, group studying allows for peer learning and discussion. 
+    <span class="drop-zone" data-answer="Although"></span> group settings can be engaging, they can also be distracting.
+  </p>
+  <button class="btn btn-check" onclick="checkAnswers(2)">Check Answers</button>
+  <div class="navigation">
+    <button class="btn btn-nav" onclick="prevTopic()">⬅ Back</button>
   </div>
+  <div class="feedback" id="feedback-2"></div>
+</div>
 
-  <div class="question" id="q4">
-    <p>4. Which planet is known as the Red Planet?</p>
-    <button onclick="answer(4, 'A')">A. Mars</button>
-    <button onclick="answer(4, 'B')">B. Venus</button>
-    <button onclick="answer(4, 'C')">C. Jupiter</button>
-    <p id="result4"></p>
-  </div>
+<script>
+  let currentTopic = 0;
+  const topics = document.querySelectorAll('.topic');
+  const connectors = document.querySelectorAll('.connector-bank');
+  const draggables = document.querySelectorAll('.draggable');
+  const dropZones = document.querySelectorAll('.drop-zone');
 
-  <div class="question" id="q5">
-    <p>5. How many continents are there?</p>
-    <button onclick="answer(5, 'A')">A. 5</button>
-    <button onclick="answer(5, 'B')">B. 6</button>
-    <button onclick="answer(5, 'C')">C. 7</button>
-    <p id="result5"></p>
-  </div>
+  draggables.forEach(elem => {
+    elem.addEventListener('dragstart', e => {
+      e.dataTransfer.setData("text", e.target.id);
+    });
+  });
 
-  <div class="question" id="q6">
-    <p>6. Who wrote 'Harry Potter'?</p>
-    <button onclick="answer(6, 'A')">A. J.R.R. Tolkien</button>
-    <button onclick="answer(6, 'B')">B. J.K. Rowling</button>
-    <button onclick="answer(6, 'C')">C. Roald Dahl</button>
-    <p id="result6"></p>
-  </div>
-
-  <div class="question" id="q7">
-    <p>7. What gas do plants absorb from the air?</p>
-    <button onclick="answer(7, 'A')">A. Oxygen</button>
-    <button onclick="answer(7, 'B')">B. Carbon Dioxide</button>
-    <button onclick="answer(7, 'C')">C. Nitrogen</button>
-    <p id="result7"></p>
-  </div>
-
-  <div class="question" id="q8">
-    <p>8. What is the largest mammal?</p>
-    <button onclick="answer(8, 'A')">A. Elephant</button>
-    <button onclick="answer(8, 'B')">B. Blue Whale</button>
-    <button onclick="answer(8, 'C')">C. Giraffe</button>
-    <p id="result8"></p>
-  </div>
-
-  <div class="question" id="q9">
-    <p>9. Which of these is a prime number?</p>
-    <button onclick="answer(9, 'A')">A. 4</button>
-    <button onclick="answer(9, 'B')">B. 9</button>
-    <button onclick="answer(9, 'C')">C. 7</button>
-    <p id="result9"></p>
-  </div>
-
-  <div class="question" id="q10">
-    <p>10. Which ocean is the largest?</p>
-    <button onclick="answer(10, 'A')">A. Indian Ocean</button>
-    <button onclick="answer(10, 'B')">B. Atlantic Ocean</button>
-    <button onclick="answer(10, 'C')">C. Pacific Ocean</button>
-    <p id="result10"></p>
-  </div>
-
-  <p><strong id="finalScore"></strong></p>
-
-  <script>
-    const correctAnswers = {
-      1: 'B',
-      2: 'A',
-      3: 'B',
-      4: 'A',
-      5: 'C',
-      6: 'B',
-      7: 'B',
-      8: 'B',
-      9: 'C',
-      10: 'C'
-    };
-
-    let score = 0;
-    let answered = {};
-
-    function answer(qNumber, choice) {
-      if (answered[qNumber]) return;
-      answered[qNumber] = true;
-
-      const isCorrect = correctAnswers[qNumber] === choice;
-      document.getElementById("result" + qNumber).innerText = isCorrect ? "✅ Correct!" : "❌ Wrong!";
-      if (isCorrect) score++;
-
-      if (Object.keys(answered).length === Object.keys(correctAnswers).length) {
-        document.getElementById("finalScore").innerText = `🎉 You scored ${score}/${Object.keys(correctAnswers).length}!`;
+  dropZones.forEach(zone => {
+    zone.addEventListener('dragover', e => {
+      e.preventDefault();
+      zone.classList.add('hover');
+    });
+    zone.addEventListener('dragleave', () => {
+      zone.classList.remove('hover');
+    });
+    zone.addEventListener('drop', e => {
+      e.preventDefault();
+      const data = e.dataTransfer.getData("text");
+      const dragged = document.getElementById(data);
+      if (zone.children.length === 0) {
+        zone.appendChild(dragged);
       }
+      zone.classList.remove('hover');
+    });
+  });
+
+  function showTopic(index) {
+    topics.forEach((t, i) => {
+      t.classList.toggle('active', i === index);
+    });
+    connectors.forEach((c, i) => {
+      c.classList.toggle('active', i === index);
+    });
+  }
+
+  function nextTopic() {
+    if (currentTopic < topics.length - 1) {
+      currentTopic++;
+      showTopic(currentTopic);
     }
-  </script>
+  }
+
+  function prevTopic() {
+    if (currentTopic > 0) {
+      currentTopic--;
+      showTopic(currentTopic);
+    }
+  }
+
+  function checkAnswers(topicIndex) {
+    const topic = topics[topicIndex];
+    const zones = topic.querySelectorAll('.drop-zone');
+    let correct = 0;
+    zones.forEach(zone => {
+      const expected = zone.dataset.answer;
+      const actual = zone.children.length > 0 ? zone.children[0].textContent.trim().toLowerCase() : "";
+      if (actual === expected.toLowerCase()) {
+        zone.style.borderColor = "#10b981";
+        correct++;
+      } else {
+        zone.style.borderColor = "#ef4444";
+      }
+    });
+    const feedback = document.getElementById('feedback-' + topicIndex);
+    if (correct === zones.length) {
+      feedback.textContent = "✅ All correct!";
+      feedback.style.color = "#10b981";
+    } else {
+      feedback.textContent = `❌ You got ${correct}/${zones.length} correct.`;
+      feedback.style.color = "#ef4444";
+    }
+  }
+</script>
+
 </body>
 </html>
