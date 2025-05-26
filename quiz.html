@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Quiz</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .question { margin-bottom: 20px; }
+    button { margin: 5px; padding: 10px; }
+  </style>
+</head>
+<body>
+  <h2>Quick Quiz</h2>
+
+  <div class="question" id="q1">
+    <p>1. What is the capital of Malaysia?</p>
+    <button onclick="answer(1, 'A')">A. Jakarta</button>
+    <button onclick="answer(1, 'B')">B. Kuala Lumpur</button>
+    <button onclick="answer(1, 'C')">C. Bangkok</button>
+    <p id="result1"></p>
+  </div>
+
+  <div class="question" id="q2">
+    <p>2. What is 5 × 6?</p>
+    <button onclick="answer(2, 'A')">A. 30</button>
+    <button onclick="answer(2, 'B')">B. 35</button>
+    <button onclick="answer(2, 'C')">C. 40</button>
+    <p id="result2"></p>
+  </div>
+
+  <p><strong id="finalScore"></strong></p>
+
+  <script>
+    const correctAnswers = { 1: 'B', 2: 'A' };
+    let score = 0;
+    let answered = {};
+
+    function answer(qNumber, choice) {
+      if (answered[qNumber]) return;
+      answered[qNumber] = true;
+
+      const isCorrect = correctAnswers[qNumber] === choice;
+      document.getElementById("result" + qNumber).innerText = isCorrect ? "✅ Correct!" : "❌ Wrong!";
+      if (isCorrect) score++;
+
+      if (Object.keys(answered).length === Object.keys(correctAnswers).length) {
+        document.getElementById("finalScore").innerText = `You scored ${score}/${Object.keys(correctAnswers).length}!`;
+      }
+    }
+  </script>
+</body>
+</html>
