@@ -28,6 +28,7 @@
       color: white;
       border: none;
       border-radius: 5px;
+      cursor: pointer;
     }
 
     #response {
@@ -40,7 +41,7 @@
 
   <h2>Send Us a Message</h2>
 
-  <form id="messageForm">
+  <form id="messageForm" name="submit-to-google-sheet">
     <label for="name">Your Name:</label>
     <input type="text" id="name" name="name" required>
 
@@ -53,32 +54,29 @@
   <div id="response"></div>
 
   <script>
-    document.getElementById('messageForm').addEventListener('submit', async function(e) {
+    const form = document.forms['submit-to-google-sheet'];
+    const responseDiv = document.getElementById('response');
+
+    form.addEventListener('submit', async e => {
       e.preventDefault();
 
-      const name = document.getElementById('name').value.trim();
-      const message = document.getElementById('message').value.trim();
-      const responseDiv = document.getElementById('response');
-
-      const data = { name, message };
+      const formData = new FormData(form);
 
       try {
-        const res = await fetch('https://script.google.com/macros/s/AKfycbwVky1Dpiq5EaDPdGzJdl2B0WGZXwszFjdIiwRRZT93pqRHOm-iluRKXqtKOlttffiDfA/exec', {
+        const res = await fetch('https://script.google.com/macros/s/AKfycbzgv1x_1rthXoEiOqVM7VRkoHFU91LkF39wN8k2jDGWiMjDMgBeVRhvI_uLYkeK4w/exec', {
           method: 'POST',
-          body: JSON.stringify(data),
-          headers: { 'Content-Type': 'application/json' }
+          body: formData
         });
 
-        const result = await res.json();
-        if (result.result === 'success') {
+        if (res.ok) {
           responseDiv.innerHTML = '✅ Message submitted successfully!';
-          document.getElementById('messageForm').reset();
+          form.reset();
         } else {
           responseDiv.innerHTML = '⚠️ Submission failed.';
         }
-      } catch (err) {
+      } catch (error) {
         responseDiv.innerHTML = '❌ Error sending message.';
-        console.error(err);
+        console.error(error);
       }
     });
   </script>
