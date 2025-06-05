@@ -135,6 +135,7 @@
     <span class="drop-zone" data-answer="However"></span>, technical issues and internet reliability remain major drawbacks in online learning.
   </p>
   <button class="btn btn-check" onclick="checkAnswers(0)">Check Answers</button>
+  <button class="btn btn-check" onclick="resetTopic(0)">Reset</button>
   <div class="navigation">
     <button class="btn btn-nav" onclick="nextTopic()">Next ➡</button>
   </div>
@@ -151,6 +152,7 @@
     <span class="drop-zone" data-answer="Although"></span> eBooks are convenient and lightweight, many still enjoy the scent and texture of paper.
   </p>
   <button class="btn btn-check" onclick="checkAnswers(1)">Check Answers</button>
+  <button class="btn btn-check" onclick="resetTopic(1)">Reset</button>
   <div class="navigation">
     <button class="btn btn-nav" onclick="prevTopic()">⬅ Back</button>
     <button class="btn btn-nav" onclick="nextTopic()">Next ➡</button>
@@ -168,6 +170,7 @@
     <span class="drop-zone" data-answer="Although"></span> group settings can be engaging, they can also be distracting.
   </p>
   <button class="btn btn-check" onclick="checkAnswers(2)">Check Answers</button>
+  <button class="btn btn-check" onclick="resetTopic(2)">Reset</button>
   <div class="navigation">
     <button class="btn btn-nav" onclick="prevTopic()">⬅ Back</button>
   </div>
@@ -251,6 +254,22 @@
       feedback.textContent = `❌ You got ${correct}/${zones.length} correct.`;
       feedback.style.color = "#ef4444";
     }
+  }
+
+  function resetTopic(topicIndex) {
+    const topic = topics[topicIndex];
+    const zones = topic.querySelectorAll('.drop-zone');
+    const bank = connectors[topicIndex];
+
+    zones.forEach(zone => {
+      if (zone.children.length > 0) {
+        const dragged = zone.children[0];
+        bank.appendChild(dragged); // Move back to connector bank
+      }
+      zone.style.borderColor = "#ccc"; // Reset border
+    });
+
+    document.getElementById('feedback-' + topicIndex).textContent = ""; // Clear feedback
   }
 </script>
 
