@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submit Message</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      max-width: 500px;
+      margin: auto;
+      background: #ffffff;
+    }
+
+    h2 {
+      color: #2563eb;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    #response {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Send Us a Message</h2>
+
+  <form id="messageForm">
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="message">Your Message:</label>
+    <textarea id="message" name="message" rows="5" required></textarea>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <div id="response"></div>
+
+  <script>
+    document.getElementById('messageForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const responseDiv = document.getElementById('response');
+
+      const data = { name, message };
+
+      try {
+        const res = await fetch('https://script.google.com/macros/s/AKfycbwVky1Dpiq5EaDPdGzJdl2B0WGZXwszFjdIiwRRZT93pqRHOm-iluRKXqtKOlttffiDfA/exec', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: { 'Content-Type': 'application/json' }
+        });
+
+        const result = await res.json();
+        if (result.result === 'success') {
+          responseDiv.innerHTML = '✅ Message submitted successfully!';
+          document.getElementById('messageForm').reset();
+        } else {
+          responseDiv.innerHTML = '⚠️ Submission failed.';
+        }
+      } catch (err) {
+        responseDiv.innerHTML = '❌ Error sending message.';
+        console.error(err);
+      }
+    });
+  </script>
+
+</body>
+</html>
